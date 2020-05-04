@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+  id="WebApp_ID" version="3.0">
+
+	<display-name>DynamicWeb</display-name>
+
+	<servlet>
+		<servlet-name>homeServlet</servlet-name>
+		<servlet-class>com.learning.servlet.HomeServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>userServlet</servlet-name>
+		<servlet-class>com.learning.servlet.UserServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>userServlet</servlet-name>
+		<url-pattern>/user</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>homeServlet</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>User management</web-resource-name>
+			<url-pattern>/user</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>user</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/WEB-INF/views/login.jsp</form-login-page>
+			<form-error-page>/WEB-INF/views/error.jsp</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
+	<security-role>
+		<role-name>user</role-name>
+	</security-role>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
